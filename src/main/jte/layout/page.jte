@@ -22,7 +22,7 @@
 <main>
 	<header>
 		<h1>
-			<all-caps>Hello HTMX</all-caps>
+			<all-caps>Diabetes Application (HTMX inside)</all-caps>
 		</h1>
 	</header>
 	${content}
