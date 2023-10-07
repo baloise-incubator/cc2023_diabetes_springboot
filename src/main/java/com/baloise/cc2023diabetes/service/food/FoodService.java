@@ -1,5 +1,6 @@
-package com.baloise.cc2023diabetes.htmx.food;
+package com.baloise.cc2023diabetes.service.food;
 
+import com.baloise.cc2023diabetes.htmx.food.FoodModel;
 import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Service;
