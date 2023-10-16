@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -16,24 +17,26 @@ import java.util.List;
 @Slf4j
 public class HtmxFoodController {
 
-	private final FoodService foodService;
+    private final FoodService foodService;
 
-	@GetMapping("/food")
-	public String food(Model model) {
-		List<FoodModel> rows = foodService.all();
+    @GetMapping("/food")
+    public String food(Model model) {
+        List<FoodModel> rows = foodService.all();
 
-		// View model population:
-		model.addAttribute("model", new FoodVM(rows));
+        // View model population:
+        model.addAttribute("model", new FoodVM(rows));
 
-		return "food/main";
-	}
+        return "food/main";
+    }
 
-	@GetMapping("/food/search")
-	public String food_search(HttpServletRequest request, @RequestParam(required = true) String search, Model model) {
+    @GetMapping("/food/search")
+    public String food_search(HttpServletRequest request, @RequestParam(required = true) String search, Model model) {
+        model.addAttribute("result", new FoodVM(new ArrayList<>()));
+        if (search != "") {
+            model.addAttribute("result", new FoodVM(foodService.search(search)));
+        }
 
-		model.addAttribute("result", new FoodVM(foodService.search(search)));
-
-		System.out.println("search = " + search);
-		return "food/search";
-	}
+        System.out.println("search = " + search);
+        return "food/search";
+    }
 }
