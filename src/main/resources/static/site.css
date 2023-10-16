@@ -1,0 +1,76 @@
+.chip{
+    display: inline-flex;
+    flex-direction: row;
+    background-color: #e5e5e5;
+    border: none;
+    cursor: default;
+    height: 36px;
+    outline: none;
+    padding: 0;
+    font-size: 14px;
+    font-color: #333333;
+    font-family:"Open Sans", sans-serif;
+    white-space: nowrap;
+    align-items: center;
+    border-radius: 8px;
+    vertical-align: middle;
+    text-decoration: none;
+    justify-content: center;
+}
+.chip-content{
+    cursor: inherit;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    white-space: nowrap;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.chip-svg{
+    color: #999999;
+    cursor: pointer;
+    height: auto;
+    margin: 4px;
+    fill: currentColor;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    font-size: 24px;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    user-select: none;
+    flex-shrink: 0;
+}
+.chip-svg:hover{
+    color: #666666;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#myUL {
+    /* Remove default list styling */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    height: 400px;
+    overflow-y: scroll;
+}
+
+#myUL li {
+    border: 1px solid #ddd; /* Add a border to all links */
+    margin-top: -1px; /* Prevent double borders */
+    background-color: #f6f6f6; /* Grey background color */
+    padding: 12px; /* Add some padding */
+    text-decoration: none; /* Remove default text underline */
+    font-size: 18px; /* Increase the font-size */
+    color: black; /* Add a black text color */
+    display: block; /* Make it into a block element to fill the whole list */
+    cursor: pointer;
+}
+
+#myUL li:hover:not(.header) {
+    background-color: #eee; /* Add a hover effect to all links, except for headers */
+}
+

@@ -30,6 +30,9 @@ public class HtmxFoodController {
 
 	@GetMapping("/food/search")
 	public String food_search(HttpServletRequest request, @RequestParam(required = true) String search, Model model) {
+
+		model.addAttribute("result", new FoodVM(foodService.search(search)));
+
 		System.out.println("search = " + search);
 		return "food/search";
 	}
