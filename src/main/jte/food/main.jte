@@ -16,6 +16,7 @@ content = @`
 				hx-trigger="keyup delay:200ms changed"
 		/>
 		<div id="search-result"></div>
+		<hr/>
 		<div>
 			<template x-for="it in items">
 				<div class="chip">
@@ -27,6 +28,9 @@ content = @`
 				</div>
 			</template>
 		</div>
+		<hr/>
+
+		<a role="button" href="/calculation">Weiter zur Berechnung</a>
 	</div>
 
 <%--

@@ -44,9 +44,16 @@
     color: #666666;
 }
 
-.search-container {
+.column-container {
     display: flex;
     flex-direction: column;
+}
+
+input.table-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
 }
 
 #myUL {
