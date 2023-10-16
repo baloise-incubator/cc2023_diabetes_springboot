@@ -4,6 +4,6 @@
 @param FoodVM result
     <ul id="myUL">
     @for(FoodModel food : result.foodModels())
-            <li>${food.name()}</li>
+            <li @click="items = [...items, '${food.name()}']">${food.name()}</li>
     @endfor
     </ul>
