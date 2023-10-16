@@ -17,9 +17,6 @@
 		<h1>
 			<all-caps>Diabetes Helper</all-caps>
 		</h1>
-		<div x-data="{ open: true }">
-			<span x-text="open"></span>
-		</div>
 	</header>
 	${content}
 </main>
