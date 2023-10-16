@@ -16,9 +16,9 @@ public class FoodService {
 	private final DSLContext jooq;
 
 	public List<FoodModel> all() {
-		return jooq.selectFrom(FOOD).fetchInto(FoodModel.class);
+		return jooq.select(FOOD.ID, FOOD.TITLE).from(FOOD).fetchInto(FoodModel.class);
 	}
 	public List<FoodModel> search(String searchString) {
-		return jooq.selectFrom(FOOD).where(FOOD.NAME.like("%" + searchString + "%")).fetchInto(FoodModel.class);
+		return jooq.select(FOOD.ID, FOOD.TITLE).from(FOOD).where(FOOD.TITLE.like("%" + searchString + "%")).fetchInto(FoodModel.class);
 	}
 }

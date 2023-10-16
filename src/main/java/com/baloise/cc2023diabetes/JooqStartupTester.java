@@ -25,7 +25,7 @@ public class JooqStartupTester implements InitializingBean {
 		Result<FoodRecord> records = jooq.selectFrom(FOOD).fetch();
 		records.forEach(it -> System.out.println(it));
 
-		List<FoodIdAndName> result = jooq.select(FOOD.ID, FOOD.NAME)
+		List<FoodIdAndName> result = jooq.select(FOOD.ID, FOOD.TITLE)
 			.from(FOOD)
 			.fetchInto(FoodIdAndName.class);
 		result.forEach(it -> System.out.println(it));
