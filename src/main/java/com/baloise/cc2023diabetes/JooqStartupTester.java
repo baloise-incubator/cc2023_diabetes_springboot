@@ -23,11 +23,11 @@ public class JooqStartupTester implements InitializingBean {
 	public void afterPropertiesSet() {
 		record FoodIdAndName(long id, String name) {};
 		Result<FoodRecord> records = jooq.selectFrom(FOOD).fetch();
-		records.forEach(it -> System.out.println(it));
+		records.forEach(System.out::println);
 
 		List<FoodIdAndName> result = jooq.select(FOOD.ID, FOOD.TITLE)
 			.from(FOOD)
 			.fetchInto(FoodIdAndName.class);
-		result.forEach(it -> System.out.println(it));
+		result.forEach(System.out::println);
 	}
 }
