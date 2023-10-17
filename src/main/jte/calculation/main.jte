@@ -1,4 +1,4 @@
-@import com.baloise.cc2023diabetes.htmx.food.FoodModel
+@import com.baloise.cc2023diabetes.service.food.model.FoodModel
 @import com.baloise.cc2023diabetes.htmx.food.FoodVM
 
 @param FoodVM model
