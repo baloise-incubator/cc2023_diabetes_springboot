@@ -1,6 +1,6 @@
 package com.baloise.cc2023diabetes.json.food;
 
-import com.baloise.cc2023diabetes.htmx.food.FoodModel;
+import com.baloise.cc2023diabetes.service.food.model.FoodModel;
 import com.baloise.cc2023diabetes.service.food.FoodService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,15 +22,5 @@ public class JsonFoodController {
 	public ResponseEntity<List<FoodModel>> food() {
 		List<FoodModel> rows = foodService.all();
 		return ResponseEntity.ok(rows);
-	}
-
-	@GetMapping("/test")
-	public String test(){
-		return "Hi unknown user!";
-	}
-
-	@GetMapping("/json/test")
-	public String testSecured(Principal principal){
-		return "Secured: Hi " + principal.getName();
 	}
 }

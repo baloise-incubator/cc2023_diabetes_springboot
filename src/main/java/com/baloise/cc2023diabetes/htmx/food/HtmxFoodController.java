@@ -1,6 +1,7 @@
 package com.baloise.cc2023diabetes.htmx.food;
 
 import com.baloise.cc2023diabetes.service.food.FoodService;
+import com.baloise.cc2023diabetes.service.food.model.FoodModel;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
