@@ -18,6 +18,7 @@ public class FoodService {
 	public List<FoodModel> all() {
 		return jooq.select(FOOD.ID, FOOD.TITLE, FOOD.UNIT, FOOD.CARBOHYDRATE_AVAILABLE, FOOD.SUGAR).from(FOOD).fetchInto(FoodModel.class);
 	}
+
 	public List<FoodModel> search(String searchString) {
 		return jooq.select(FOOD.ID, FOOD.TITLE, FOOD.UNIT, FOOD.CARBOHYDRATE_AVAILABLE, FOOD.SUGAR).from(FOOD)
 				.where(FOOD.TITLE.like("%" + searchString + "%")).fetchInto(FoodModel.class);
