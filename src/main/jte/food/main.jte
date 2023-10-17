@@ -5,7 +5,9 @@
 
 @template.layout.page(
 content = @`
-	<div class="search-container"  x-data="{ items: [] }">
+<%--	<div class="search-container" x-data="$store.state">--%>
+<%--	</div>--%>
+	<div class="search-container">
 		<input
 				type="search"
 				id="myInput"
@@ -15,9 +17,35 @@ content = @`
 				hx-target="#search-result"
 				hx-trigger="keyup delay:200ms changed"
 		/>
-		<div id="search-result"></div>
-		<hr/>
-		<div>
+
+		<div id="dropdown-and-chips" x-data="{ items: $persist([]) }">
+			<div id="search-result">
+			</div>
+
+			<hr/>
+
+			<div id="chips">
+				<div x-text="items.length"></div>
+<%--				<template x-for="item in items" :key="item.id">--%>
+				<template x-for="item in items">
+					<div class="chip">
+						<div class="chip-content" x-text="item.title"></div>
+					</div>
+				</template>
+			</div>
+<%--
+			<div id="chips" x-data>
+				<template x-for="item in $store.globalstate.items">
+					<div class="chip">
+						<div class="chip-content" x-text="item || '-'"></div>
+					</div>
+				</template>
+			</div>
+--%>
+		</div>
+
+
+<%--
 			<template x-for="item in items">
 				<div class="chip">
 					<div class="chip-content" x-text="item"></div>
@@ -27,7 +55,8 @@ content = @`
 					</div>
 				</div>
 			</template>
-		</div>
+--%>
+<%--		</div>--%>
 		<hr/>
 
 		<a role="button" href="/calculation">Weiter zur Berechnung</a>
