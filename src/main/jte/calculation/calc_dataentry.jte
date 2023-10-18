@@ -28,6 +28,7 @@
 						name="amount"
 						hx-put="/changeSelectedFood"
 						hx-vals='{"title": "${food.title()}"}'
+						value="${food.amount()}"
 					>
 				</td>
 				<td>

@@ -32,6 +32,14 @@ public class HtmxCalculationController {
         response.setHeader("HX-Trigger", "selectedFoodEntryChanged");
     }
 
+    @GetMapping("/calcDataEntry")
+    public String calcDataEntry(Model model) {
+        var items = selectedFoodStore.getItems();
+
+        model.addAttribute("items", items.values());
+        return "calculation/calc_dataentry";
+    }
+
     @GetMapping("/selectedFoodItems")
     public String selectedFoodItems(Model model) {
         var items = selectedFoodStore.getItems();

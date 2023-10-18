@@ -3,14 +3,15 @@
 
 @param Collection<SelectedFoodModel> items
 
+<%-- selectedFoodEntryChanged --%>
 @template.layout.page(
-init = "selectedFoodEntryChanged",
+init = "init",
 content = @`
 	<div>
 		<div>
-			@template.calculation.calc_dataentry(items)
+			<div hx-trigger="selectedFoodEntryChanged from:body, init from:body" hx-get="/calcDataEntry"></div>
 <%--			@template.calculation.calc_empfindlichkeit()--%>
-			@template.calculation.calc_result(items)
+			<div hx-trigger="selectedFoodEntryChanged from:body, init from:body" hx-get="/selectedFoodItems"></div>
 
 
 		</div>

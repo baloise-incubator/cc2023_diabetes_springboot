@@ -4,7 +4,7 @@
 @param FoodVM model
 
 @template.layout.page(
-init = "selectedFoodChanged",
+init = "init",
 content = @`
 	<div class="search-container">
 		<input
@@ -17,7 +17,7 @@ content = @`
 				hx-trigger="keyup delay:200ms changed"
 		/>
 		<div id="search-result"></div>
-		<div hx-trigger="selectedFoodChanged from:body" hx-get="/chips"></div>
+		<div hx-trigger="selectedFoodChanged from:body, init from:body" hx-get="/chips"></div>
 		<hr>
 		<a href="/calculation">Weiter zur Berechnung</a>
 	</div>
