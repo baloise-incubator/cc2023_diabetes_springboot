@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -51,26 +49,28 @@ public class HtmxFoodController {
 
     @PostMapping(path = "/saveSelectedFood", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public void saveSelectedFood(SaveFoodPayload payload, Model model, HttpServletResponse response) {
-        var newTitles = new HashSet<>(selectedFood.getTitles());
-        newTitles.add(payload.title());
-        selectedFood.setTitles(newTitles);
-        model.addAttribute("message", payload.title() + " put into session");
+        String newFoodName = payload.title();
+        FoodModel foodModel = foodService.search(newFoodName).get(0);
+        var newItems = new HashMap<>(selectedFood.getItems());
+        newItems.put(newFoodName, foodModel);
+        selectedFood.setItems(newItems);
+
+        model.addAttribute("message", newFoodName + " put into session");
         response.setHeader("HX-Trigger", "selectedFoodChanged");
         response.setStatus(HttpStatus.CREATED.value());
     }
 
     @DeleteMapping(path = "/deleteSelectedFood", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public void deleteSelectedFood(DeleteFoodPayload payload, Model model, HttpServletResponse response) {
-        var newTitles = selectedFood.getTitles().stream()
-            .filter(it -> !payload.title().equals(it))
-            .collect(Collectors.toSet());
-        selectedFood.setTitles(newTitles);
+        var map = new HashMap<>(selectedFood.getItems());
+        map.remove(payload.title());
+        selectedFood.setItems(map);
         response.setHeader("HX-Trigger", "selectedFoodChanged");
     }
 
     @GetMapping("/chips")
     public String chips(Model model) {
-        model.addAttribute("items", selectedFood.getTitles());
+        model.addAttribute("items", selectedFood.getItems().keySet());
         return "food/chips";
     }
 
