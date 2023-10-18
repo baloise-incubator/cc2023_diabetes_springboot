@@ -27,7 +27,6 @@ public class FoodService {
     }
 
     public FoodModel findFood(String title) {
-        FoodModel foodModel = search(title).get(0);
-        return foodModel;
+		return search(title).get(0);
     }
 }

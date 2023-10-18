@@ -12,9 +12,8 @@ import java.util.Map;
 @SessionScope
 @Component
 @Data
-public class SelectedFood {
-//	private Set<String> titles = new HashSet<>();
-	private Map<String, FoodModel> items = new HashMap<>();
+public class SelectedFoodStore {
+	private Map<String, SelectedFoodModel> items = new HashMap<>();
 
 	private final FoodService foodService;
 
@@ -26,7 +25,13 @@ public class SelectedFood {
 
 	public void addItem(String title) {
 		var newItems = new HashMap<>(getItems());
-		newItems.put(title, foodService.findFood(title));
+		FoodModel food = foodService.findFood(title);
+		newItems.put(title, new SelectedFoodModel(food.id(), food.title(), "0"));
 		setItems(newItems);
+	}
+	public void changeItem(String title, String amount) {
+		var changedItem = getItems().get(title).withAmount(amount);
+		System.out.println("changedItem = " + changedItem);
+		getItems().put(title, changedItem);
 	}
 }

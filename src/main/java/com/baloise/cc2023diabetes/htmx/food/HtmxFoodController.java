@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
@@ -25,7 +24,7 @@ public class HtmxFoodController {
 
     private final FoodService foodService;
 
-    private final SelectedFood selectedFood;
+    private final SelectedFoodStore selectedFoodStore;
 
     @GetMapping("/food")
     public String food(Model model) {
@@ -49,7 +48,7 @@ public class HtmxFoodController {
 
     @PostMapping(path = "/saveSelectedFood", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public void saveSelectedFood(SaveFoodPayload payload, Model model, HttpServletResponse response) {
-        selectedFood.addItem(payload.title());
+        selectedFoodStore.addItem(payload.title());
 
         model.addAttribute("message", payload.title() + " put into session");
         response.setHeader("HX-Trigger", "selectedFoodChanged");
@@ -58,13 +57,13 @@ public class HtmxFoodController {
 
     @DeleteMapping(path = "/deleteSelectedFood", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public void deleteSelectedFood(DeleteFoodPayload payload, Model model, HttpServletResponse response) {
-        selectedFood.removeItem(payload.title());
+        selectedFoodStore.removeItem(payload.title());
         response.setHeader("HX-Trigger", "selectedFoodChanged");
     }
 
     @GetMapping("/chips")
     public String chips(Model model) {
-        model.addAttribute("items", selectedFood.getItems().keySet());
+        model.addAttribute("items", selectedFoodStore.getItems().keySet());
         return "food/chips";
     }
 
