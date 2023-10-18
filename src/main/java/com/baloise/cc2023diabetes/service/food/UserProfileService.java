@@ -9,19 +9,20 @@ import org.jooq.DSLContext;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class UserProfileService {
     private final DSLContext jooq;
 
-    public Optional<UserProfileModel> loadUserProfile(String userId) {
+    public Optional<UserProfileModel> loadUserProfile(UUID userId) {
         return new UserProfileDao(jooq.configuration())
                 .findOptionalById(userId).map(UserProfileModel::fromUserProfile);
     }
 
     @Synchronized
-    public void upsertUserProfile(String userId, UserProfileModel profile) {
+    public void upsertUserProfile(UUID userId, UserProfileModel profile) {
         UserProfileDao dao = new UserProfileDao(jooq.configuration());
         UserProfile entity = profile.toUserProfile(userId);
         loadUserProfile(userId).ifPresentOrElse(p -> dao.update(entity), () -> dao.insert(entity));
