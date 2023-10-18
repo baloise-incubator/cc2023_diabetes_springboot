@@ -25,4 +25,9 @@ public class FoodService {
                         FOOD.CARBOHYDRATE_AVAILABLE.div(10.0), FOOD.SUGAR).from(FOOD)
                 .where(FOOD.TITLE.like("%" + searchString + "%")).fetchInto(FoodModel.class);
     }
+
+    public FoodModel findFood(String title) {
+        FoodModel foodModel = search(title).get(0);
+        return foodModel;
+    }
 }

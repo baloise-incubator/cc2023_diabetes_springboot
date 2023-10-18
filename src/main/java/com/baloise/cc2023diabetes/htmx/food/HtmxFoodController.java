@@ -49,22 +49,16 @@ public class HtmxFoodController {
 
     @PostMapping(path = "/saveSelectedFood", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public void saveSelectedFood(SaveFoodPayload payload, Model model, HttpServletResponse response) {
-        String newFoodName = payload.title();
-        FoodModel foodModel = foodService.search(newFoodName).get(0);
-        var newItems = new HashMap<>(selectedFood.getItems());
-        newItems.put(newFoodName, foodModel);
-        selectedFood.setItems(newItems);
+        selectedFood.addItem(payload.title());
 
-        model.addAttribute("message", newFoodName + " put into session");
+        model.addAttribute("message", payload.title() + " put into session");
         response.setHeader("HX-Trigger", "selectedFoodChanged");
         response.setStatus(HttpStatus.CREATED.value());
     }
 
     @DeleteMapping(path = "/deleteSelectedFood", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public void deleteSelectedFood(DeleteFoodPayload payload, Model model, HttpServletResponse response) {
-        var map = new HashMap<>(selectedFood.getItems());
-        map.remove(payload.title());
-        selectedFood.setItems(map);
+        selectedFood.removeItem(payload.title());
         response.setHeader("HX-Trigger", "selectedFoodChanged");
     }
 
