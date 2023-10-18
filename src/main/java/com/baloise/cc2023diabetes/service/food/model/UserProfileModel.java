@@ -9,6 +9,8 @@ public record UserProfileModel(
         BigDecimal sensitivityNoon,
         BigDecimal sensitivityEvening) {
 
+    public static final UserProfileModel EMPTY = new UserProfileModel(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
+
     public UserProfile toUserProfile(String userId) {
         return new UserProfile(userId, sensitivityMorning, sensitivityNoon, sensitivityEvening);
     }

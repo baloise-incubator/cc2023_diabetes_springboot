@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,8 +16,8 @@ public class JsonUserProfileController {
     private final UserProfileService userProfileService;
 
     @GetMapping("/json/user-profile")
-    public Optional<UserProfileModel> getUserProfile(Principal principal) {
-        return userProfileService.loadUserProfile(principal.getName());
+    public UserProfileModel getUserProfile(Principal principal) {
+        return userProfileService.loadUserProfile(principal.getName()).orElse(UserProfileModel.EMPTY);
     }
 
     @PutMapping("/json/user-profile")
