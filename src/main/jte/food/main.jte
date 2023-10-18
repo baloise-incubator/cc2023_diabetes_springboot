@@ -16,7 +16,7 @@ content = @`
 				hx-trigger="keyup delay:200ms changed"
 		/>
 		<div id="search-result"></div>
-		<div hx-trigger="selectedFoodSaved from:body" hx-get="/chips"></div>
+		<div hx-trigger="selectedFoodChanged from:body" hx-get="/chips"></div>
 		<hr>
 		<a role="button" href="/calculation">Weiter zur Berechnung</a>
 	</div>

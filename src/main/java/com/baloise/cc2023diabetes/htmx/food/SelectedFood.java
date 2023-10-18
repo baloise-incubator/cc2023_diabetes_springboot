@@ -4,12 +4,12 @@ import lombok.Data;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @SessionScope
 @Component
 @Data
 public class SelectedFood {
-	private final List<String> titles = new ArrayList<>();
+	private Set<String> titles = new HashSet<>();
 }
