@@ -1,6 +1,6 @@
 package com.baloise.cc2023diabetes.htmx.calculation;
 
-import jakarta.servlet.http.HttpServletRequest;
+import com.baloise.cc2023diabetes.htmx.food.SelectedFood;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Slf4j
 public class HtmxCalculationController {
 
+    private final SelectedFood selectedFood;
+
     @GetMapping("/calculation")
-    public String calculation(HttpServletRequest request) {
+    public String calculation(Model model) {
+        model.addAttribute("items", selectedFood.getTitles());
         return "calculation/main";
     }
 }

@@ -15,7 +15,7 @@
 <main class="container">
 	<header>
 		<h1>
-			<all-caps>Diabetes Helper</all-caps>
+			<all-caps>Diabetes Helper (HTMX inside)</all-caps>
 		</h1>
 	</header>
 	${content}
