@@ -20,7 +20,8 @@ public class HtmxCalculationController {
     @GetMapping("/calculation")
     public String calculation(Model model) {
         var items = selectedFoodStore.getItems();
-        model.addAttribute("items", items.keySet());
+
+        model.addAttribute("items", items.values());
         return "calculation/main";
     }
 
@@ -28,7 +29,15 @@ public class HtmxCalculationController {
     public void changeSelectedFood(ChangeSelectedFoodPayload payload, Model model, HttpServletResponse response) {
         log.info("changeSelectedFood: {}", payload);
         selectedFoodStore.changeItem(payload.title(), payload.amount());
+        response.setHeader("HX-Trigger", "selectedFoodEntryChanged");
+    }
 
+    @GetMapping("/selectedFoodItems")
+    public String selectedFoodItems(Model model) {
+        var items = selectedFoodStore.getItems();
+
+        model.addAttribute("items", items.values());
+        return "calculation/calc_selected-food-items";
     }
 
 }

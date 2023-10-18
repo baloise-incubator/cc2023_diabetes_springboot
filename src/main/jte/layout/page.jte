@@ -1,5 +1,6 @@
 @import gg.jte.Content
 
+@param String init
 @param Content content
 
 <!doctype html>
@@ -11,7 +12,7 @@
 	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.1/dist/cdn.min.js"></script>
 	<link rel="stylesheet" href="/site.css">
 </head>
-<body hx-boost="true">
+<body>
 <main class="container">
 	<header>
 		<h1>
@@ -23,7 +24,7 @@
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        htmx.trigger("body", "selectedFoodChanged");
+        htmx.trigger("body", "${init}");
     });
 </script>
 </html>
