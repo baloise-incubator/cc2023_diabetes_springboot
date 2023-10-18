@@ -22,6 +22,8 @@
 </main>
 </body>
 <script>
-    // htmx.logAll();
+    document.addEventListener("DOMContentLoaded", function() {
+        htmx.trigger("body", "selectedFoodChanged");
+    });
 </script>
 </html>
