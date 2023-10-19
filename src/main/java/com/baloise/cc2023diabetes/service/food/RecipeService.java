@@ -71,9 +71,9 @@ public class RecipeService {
                                         ).mapping(FoodModel::new),
                                         RECIPE_INCREEDIENTS.AMOUNT
                                 )
-                                        .from(RECIPE_INCREEDIENTS)
-                                    .join(FOOD).on(RECIPE_INCREEDIENTS.FOOD.eq(FOOD.ID))
-//                                        .from(RECIPE_INCREEDIENTS, FOOD)
+//                                        .from(RECIPE_INCREEDIENTS)
+//                                    .join(FOOD).on(RECIPE_INCREEDIENTS.FOOD.eq(FOOD.ID))
+                                        .from(RECIPE_INCREEDIENTS, FOOD)
                                         .where(RECIPE_INCREEDIENTS.FOOD.eq(FOOD.ID)
                                                 .and(RECIPE_INCREEDIENTS.RECIPE.eq(RECIPE.ID)
                                                         .and(RECIPE.USER_ID.eq(userId))))
