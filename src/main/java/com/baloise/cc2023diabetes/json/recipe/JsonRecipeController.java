@@ -27,7 +27,7 @@ public class JsonRecipeController {
     }
 
     @GetMapping("/json/recipes")
-    public List<RecipeModel> getAllRecipes(Principal principal, @RequestParam String search) {
+    public List<RecipeModel> getAllRecipes(Principal principal, @RequestParam(required = false) String search) {
         UUID userId = UUID.fromString(principal.getName());
         return search != null && !search.isEmpty()
                 ? recipeService.searchRecipes(userId, search) :
