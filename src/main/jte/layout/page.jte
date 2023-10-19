@@ -12,7 +12,7 @@
 	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.1/dist/cdn.min.js"></script>
 	<link rel="stylesheet" href="/site.css">
 </head>
-<body>
+<body hx-boost="true">
 <main class="container">
 	<header>
 		<h1>

@@ -19,7 +19,11 @@ content = @`
 		<div id="search-result"></div>
 		<div hx-trigger="selectedFoodChanged from:body, init from:body" hx-get="/chips"></div>
 		<hr>
-		<a href="/calculation">Weiter zur Berechnung</a>
+		<%--
+		Disable hx-boost so that 'DOMContentLoaded' event will be triggered.
+		Alternative: disable it completely on body element.
+		--%>
+		<a hx-boost="false" href="/calculation" role="button">Weiter zur Berechnung</a>
 	</div>
 `
 )
