@@ -1,23 +1,21 @@
 package com.baloise.cc2023diabetes.service.food;
 
 import com.baloise.cc2023.diabetes.jooq.tables.daos.RecipeDao;
-import com.baloise.cc2023.diabetes.jooq.tables.daos.RecipeIncreedientsDao;
 import com.baloise.cc2023.diabetes.jooq.tables.pojos.Recipe;
-import com.baloise.cc2023.diabetes.jooq.tables.pojos.RecipeIncreedients;
 import com.baloise.cc2023diabetes.service.food.model.CreateRecipeModel;
+import com.baloise.cc2023diabetes.service.food.model.FoodModel;
 import com.baloise.cc2023diabetes.service.food.model.RecipeIngredientModel;
 import com.baloise.cc2023diabetes.service.food.model.RecipeModel;
 import lombok.AllArgsConstructor;
+import org.jooq.Condition;
 import org.jooq.DSLContext;
+import org.jooq.Records;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
-import static com.baloise.cc2023.diabetes.jooq.Tables.RECIPE;
-import static com.baloise.cc2023.diabetes.jooq.Tables.RECIPE_INCREEDIENTS;
+import static com.baloise.cc2023.diabetes.jooq.Tables.*;
+import static org.jooq.impl.DSL.*;
 
 @Service
 @AllArgsConstructor
@@ -38,12 +36,6 @@ public class RecipeService {
                 .orElse(false);
     }
 
-    public List<RecipeIncreedients> ingredientsFor(Integer id) {
-        return new RecipeIncreedientsDao(jooq.configuration())
-                .fetchByFood(id)
-                .stream().toList();
-    }
-
     public RecipeModel createRecipe(UUID userId, CreateRecipeModel recipe) {
         Integer recipeId = jooq.transactionResult(ctx -> {
             Integer id = Objects.requireNonNull(ctx.dsl().insertInto(RECIPE, RECIPE.USER_ID, RECIPE.TITLE)
@@ -57,32 +49,44 @@ public class RecipeService {
                     .execute());
             return id;
         });
-        return getRecipe(recipeId);
+        return getRecipe(userId, recipeId);
     }
 
     public List<RecipeModel> getAll(UUID userId) {
-        return jooq.select(RECIPE.ID).from(RECIPE).where(RECIPE.USER_ID.eq(userId)).stream()
-                .map(r -> r.get(RECIPE.ID))
-                .map(this::getRecipe)
-                .toList();
+        return getRecipes(userId, Collections.emptyList());
+    }
+
+    private List<RecipeModel> getRecipes(UUID userId, List<Condition> recipeConditions) {
+        return jooq.select(
+                        RECIPE.ID,
+                        RECIPE.TITLE,
+                        multiset(
+                                select(
+                                        row(FOOD.ID,
+                                                FOOD.TITLE,
+                                                FOOD.UNIT,
+                                                FOOD.CARBOHYDRATE_AVAILABLE,
+                                                FOOD.CARBOHYDRATE_AVAILABLE.div(10.0),
+                                                FOOD.SUGAR
+                                        ).mapping(FoodModel::new),
+                                        RECIPE_INCREEDIENTS.AMOUNT
+                                )
+                                        .from(RECIPE_INCREEDIENTS, FOOD)
+                                        .where(RECIPE_INCREEDIENTS.FOOD.eq(FOOD.ID)
+                                                .and(RECIPE_INCREEDIENTS.RECIPE.eq(RECIPE.ID)
+                                                        .and(RECIPE.USER_ID.eq(userId))))
+                        ).convertFrom(p -> p.map(Records.mapping(RecipeIngredientModel::new))))
+                .from(RECIPE)
+                .where(recipeConditions.isEmpty() ? List.of(trueCondition()) : recipeConditions)
+                .fetchInto(RecipeModel.class);
     }
 
     public List<RecipeModel> searchRecipes(UUID userId, String search) {
-        return jooq.select(RECIPE.ID).from(RECIPE).where(RECIPE.USER_ID.eq(userId).and(RECIPE.TITLE.like("%" + search + "%")))
-                .stream()
-                .map(r -> r.get(RECIPE.ID))
-                .map(this::getRecipe)
-                .toList();
+        return getRecipes(userId, List.of(RECIPE.TITLE.like("%" + search + "%")));
     }
 
-    public RecipeModel getRecipe(Integer id) {
-        Recipe recipe = new RecipeDao(jooq.configuration()).findById(id);
-        assert recipe != null;
-        List<RecipeIncreedients> recipeIncreedients = new RecipeIncreedientsDao(jooq.configuration()).fetchByRecipe(id);
-        return new RecipeModel(
-                id,
-                recipe.getTitle(),
-                recipeIncreedients.stream().map(i -> new RecipeIngredientModel(i.getFood(), i.getAmount())).toList()
-        );
+    public RecipeModel getRecipe(UUID userId, Integer id) {
+        List<RecipeModel> recipeModel = getRecipes(userId, List.of(RECIPE.ID.eq(id)));
+        return recipeModel.isEmpty() ? null : recipeModel.get(0);
     }
 }

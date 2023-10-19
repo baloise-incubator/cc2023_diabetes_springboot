@@ -1,5 +1,11 @@
 package com.baloise.cc2023diabetes.service.food.model;
 
-public record FoodModel(long id, String title, String unit, Double carbohydrateAvailable, Double carbohydrateUnits,
-                        Double sugar) {
+import java.math.BigDecimal;
+
+public record FoodModel(Integer id, String title,
+                        String unit,
+                        BigDecimal carbohydrateAvailable,
+                        BigDecimal carbohydrateUnits,
+                        BigDecimal sugar) {
+
 }

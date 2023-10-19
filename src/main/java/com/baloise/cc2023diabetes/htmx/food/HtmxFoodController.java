@@ -22,7 +22,7 @@ public class HtmxFoodController {
 
     @GetMapping("/food")
     public String food(Model model) {
-        List<FoodModel> rows = foodService.all();
+        List<FoodModel> rows = foodService.getAll();
 
         // View model population:
         model.addAttribute("model", new FoodVM(rows));

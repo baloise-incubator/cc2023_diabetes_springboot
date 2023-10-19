@@ -21,13 +21,16 @@ public class JsonRecipeController {
         return recipeService.createRecipe(UUID.fromString(principal.getName()), recipeModel);
     }
 
-    @GetMapping("/json/recipes/search")
-    public List<RecipeModel> searchRecipes(Principal principal, @RequestParam String search) {
-        return recipeService.searchRecipes(UUID.fromString(principal.getName()), search);
+    @GetMapping("/json/recipes/{id}")
+    public RecipeModel getRecipeById(Principal principal, @PathVariable Integer id) {
+        return recipeService.getRecipe(UUID.fromString(principal.getName()), id);
     }
 
     @GetMapping("/json/recipes")
-    public List<RecipeModel> getAllRecipes(Principal principal) {
-        return recipeService.getAll(UUID.fromString(principal.getName()));
+    public List<RecipeModel> getAllRecipes(Principal principal, @RequestParam String search) {
+        UUID userId = UUID.fromString(principal.getName());
+        return search != null && !search.isEmpty()
+                ? recipeService.searchRecipes(userId, search) :
+                recipeService.getAll(userId);
     }
 }
