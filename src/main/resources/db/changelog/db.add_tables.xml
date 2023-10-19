@@ -69,28 +69,28 @@
 
     </changeSet>
 
-    <!-- <changeSet id="load-data-food" author="jmh">
+    <changeSet id="load-data-food" author="jmh">
          <loadData
                  file="food_data.csv"
                  separator=";"
-                 tableName="Food"
+                 tableName="FOOD"
                  relativeToChangelogFile="true">
-             <column name="TITLE" type="STRING"/>
-             <column name="SYN" type="STRING"/>
-             <column name="CAT" type="STRING"/>
-             <column name="UNIT" type="STRING"/>
-             <column name="KILOJOULE" type="NUMERIC"/>
-             <column name="FAT_TOTAL" type="NUMERIC"/>
-             <column name="FAT_SATURATED" type="NUMERIC"/>
-             <column name="FAT_UNSATURATED_SINGLE" type="NUMERIC"/>
-             <column name="FAT_UNSATURATED_MULTIPLE" type="NUMERIC"/>
-             <column name="CARBOHYDRATE_AVAILABLE" type="NUMERIC"/>
-             <column name="SUGAR" type="NUMERIC"/>
-             <column name="FIBRE" type="NUMERIC"/>
-             <column name="PROTEIN" type="NUMERIC"/>
-             <column name="WATER" type="NUMERIC"/>
+             <column name="TITLE" type="STRING" header="Name"/>
+             <column name="SYN" type="STRING" header="Synonyme"/>
+             <column name="CAT" type="STRING" header="Kategorie"/>
+             <column name="UNIT" type="STRING" header="Bezugseinheit"/>
+             <column name="KILOJOULE" type="double" header="Energie, Kilojoule (kJ)"/>
+             <column name="FAT_TOTAL" type="double" header="Fett, total (g)"/>
+             <column name="FAT_SATURATED" type="double" header="Fettsäuren, gesättigt (g)"/>
+             <column name="FAT_UNSATURATED_SINGLE" type="double" header="Fettsäuren, einfach ungesättigt (g)"/>
+             <column name="FAT_UNSATURATED_MULTIPLE" type="double" header="Fettsäuren, mehrfach ungesättigt (g)"/>
+             <column name="CARBOHYDRATE_AVAILABLE" type="double" header="Kohlenhydrate, verfügbar (g)"/>
+             <column name="SUGAR" type="double" header="Zucker (g)"/>
+             <column name="FIBRE" type="double" header="Nahrungsfasern (g)"/>
+             <column name="PROTEIN" type="double" header="Protein (g)"/>
+             <column name="WATER" type="double" header="Wasser (g)"/>
          </loadData>
-     </changeSet>-->
+     </changeSet>
 
 
 </databaseChangeLog>
