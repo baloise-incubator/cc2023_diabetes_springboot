@@ -28,4 +28,8 @@ public class FoodService {
                         .or(DSL.lower(FOOD.SYN).like(searchString.toLowerCase() + "%"))
                 ).fetchInto(FoodModel.class);
     }
+
+    public FoodModel findFood(String title) {
+		return search(title).get(0);
+    }
 }

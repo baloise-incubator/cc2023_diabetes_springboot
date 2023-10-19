@@ -1,9 +1,11 @@
-@import com.baloise.cc2023diabetes.htmx.food.FoodModel
+@import com.baloise.cc2023diabetes.service.food.model.FoodModel
 @import com.baloise.cc2023diabetes.htmx.food.FoodVM
 
 @param FoodVM result
     <ul id="myUL">
     @for(FoodModel food : result.foodModels())
-            <li @click="items = [...items, '${food.title()}']">${food.title()}</li>
+        <li hx-post="/saveSelectedFood" hx-target="#none" hx-vals='{"title": "${food.title()}", "p2": "v2"}'>${food.title()}</li>
     @endfor
     </ul>
+
+<div id="none" style="display: none"></div>
