@@ -56,7 +56,7 @@ public class RecipeService {
         return getRecipes(userId, Collections.emptyList());
     }
 
-    private List<RecipeModel> getRecipes(UUID userId, List<Condition> recipeConditions) {
+    List<RecipeModel> getRecipes(UUID userId, List<Condition> recipeConditions) {
         return jooq.select(
                         RECIPE.ID,
                         RECIPE.TITLE,
@@ -71,9 +71,8 @@ public class RecipeService {
                                         ).mapping(FoodModel::new),
                                         RECIPE_INCREEDIENTS.AMOUNT
                                 )
-//                                        .from(RECIPE_INCREEDIENTS)
-//                                    .join(FOOD).on(RECIPE_INCREEDIENTS.FOOD.eq(FOOD.ID))
-                                        .from(RECIPE_INCREEDIENTS, FOOD)
+                                    .from(RECIPE_INCREEDIENTS)
+                                    .join(FOOD).on(RECIPE_INCREEDIENTS.FOOD.eq(FOOD.ID))
                                         .where(RECIPE_INCREEDIENTS.FOOD.eq(FOOD.ID)
                                                 .and(RECIPE_INCREEDIENTS.RECIPE.eq(RECIPE.ID)
                                                         .and(RECIPE.USER_ID.eq(userId))))
