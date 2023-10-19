@@ -11,7 +11,8 @@
 		<thead>
 		<tr>
 			<th scope="col">Lebensmittel</th>
-			<th scope="col">Menge in g</th>
+			<th scope="col">Einheit</th>
+			<th scope="col">Menge in Einheit</th>
 			<th scope="col">Aktion</th>
 		</tr>
 		</thead>
@@ -19,6 +20,7 @@
 		@for(SelectedFoodModel food : items)
 			<tr>
 				<td scope="row">${food.title()}</td>
+				<td scope="row">${food.unit()}</td>
 				<td>
 					<input
 						class="table-input"

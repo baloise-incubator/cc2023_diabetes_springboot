@@ -26,12 +26,20 @@ public class SelectedFoodStore {
 	public void addItem(String title) {
 		var newItems = new HashMap<>(getItems());
 		FoodModel food = foodService.findFood(title);
-		newItems.put(title, new SelectedFoodModel(food.id(), food.title(), "0"));
+		var newItem = SelectedFoodModelBuilder.builder()
+			.id(food.id())
+			.title(food.title())
+			.unit(food.unit())
+			.amount(0)
+			.carbohydrateAvailable(food.carbohydrateAvailable())
+			.carbohydrateUnits(food.carbohydrateUnits())
+			.sugar(food.sugar())
+			.build();
+		newItems.put(title, newItem);
 		setItems(newItems);
 	}
-	public void changeItem(String title, String amount) {
+	public void changeItem(String title, int amount) {
 		var changedItem = getItems().get(title).withAmount(amount);
-		System.out.println("changedItem = " + changedItem);
 		getItems().put(title, changedItem);
 	}
 }

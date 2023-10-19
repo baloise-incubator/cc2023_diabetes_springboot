@@ -1,5 +1,6 @@
 package com.baloise.cc2023diabetes.htmx.calculation;
 
+import com.baloise.cc2023diabetes.htmx.food.SelectedFoodModel;
 import com.baloise.cc2023diabetes.htmx.food.SelectedFoodStore;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+
+import java.util.*;
 
 @Controller
 @AllArgsConstructor
@@ -34,18 +37,36 @@ public class HtmxCalculationController {
 
     @GetMapping("/calcDataEntry")
     public String calcDataEntry(Model model) {
-        var items = selectedFoodStore.getItems();
-
-        model.addAttribute("items", items.values());
+        model.addAttribute("items", selectedFoodModelsSorted(selectedFoodStore.getItems().values()));
         return "calculation/calc_dataentry";
     }
 
     @GetMapping("/selectedFoodItems")
     public String selectedFoodItems(Model model) {
-        var items = selectedFoodStore.getItems();
+        Collection<SelectedFoodModel> values = selectedFoodStore.getItems().values();
+        model.addAttribute("items", selectedFoodModelsSorted(values));
 
-        model.addAttribute("items", items.values());
+        var selectedSensitivity = 1.2;
+
+        var insulinSum = 0.0;
+        var keSum = 0.0;
+        for (SelectedFoodModel value : values) {
+            var w = value.amount();
+            insulinSum += (w)/100.0;
+            keSum += w*value.carbohydrateUnits();
+        }
+		insulinSum /= selectedSensitivity;
+        model.addAttribute("insulinSum", String.format("%,.2f", insulinSum) );
+        model.addAttribute("keSum", String.format("%,.2f", keSum));
+        model.addAttribute("selectedSensitivity", selectedSensitivity);
+
         return "calculation/calc_selected-food-items";
+    }
+
+    private List<SelectedFoodModel> selectedFoodModelsSorted(Collection<SelectedFoodModel> values) {
+        var result = new ArrayList<>(values);
+        Collections.sort(result);
+        return result;
     }
 
 }

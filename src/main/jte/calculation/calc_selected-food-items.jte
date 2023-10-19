@@ -2,6 +2,9 @@
 @import java.util.Collection
 
 @param Collection<SelectedFoodModel> items
+@param String insulinSum
+@param String keSum
+@param double selectedSensitivity
 
 <article>
 
@@ -12,7 +15,8 @@
 		<thead>
 		<tr>
 			<th scope="col">Lebensmittel</th>
-			<th scope="col">Menge in g</th>
+			<th scope="col">Einheit</th>
+			<th scope="col">Menge in Einheit</th>
 			<th scope="col">Kohlenhydrate in g</th>
 			<th scope="col">Zucker in g</th>
 			<th scope="col">KEs</th>
@@ -22,28 +26,40 @@
 		@for(SelectedFoodModel food : items)
 			<tr>
 				<td scope="row">${food.title()}</td>
+				<td>${food.unit()}</td>
 				<td>${food.amount()}</td>
-				<td>1</td>
-				<td>1</td>
-				<td>1</td>
+				<td>${food.weightedCarbohydrateAvailable()}</td>
+				<td>${food.weightedSugar()}</td>
+				<td>${food.weightedCarbohydrateUnits()}</td>
 			</tr>
 		@endfor
 		</tbody>
-		<tfoot>
-		<tr>
-			<td scope="row">Summe</td>
-			<td></td>
-			<td>3</td>
-			<td></td>
-			<td></td>
-		</tr>
-		</tfoot>
 	</table>
-	<footer>
-		<details>
-			<summary>Gesamt Insulin Einheiten: 6</summary>
-			<p>Berechnung: 3 KEs * Insulinfaktor (2) = Gesamt Insulin Einheiten: 6</p>
-		</details>
-		<!--                    <p data-tooltip="3 KEs * Insulinfaktor (2) = Gesamt Insulin Einheiten: 6">Gesamt Insulin Einheiten: 6</p>-->
-	</footer>
+</article>
+
+<article>
+	<header>
+		<h3>Insulinbedarf: ${insulinSum} Einheiten</h3>
+	</header>
+	<body>
+	<h4> Berechnung</h4>
+	<table>
+		<thead>
+		<th>Summe KEs</th>
+		<th></th>
+		<th>KE-Faktor</th>
+		<th></th>
+		<th><b>Insulineinheiten</b></th>
+		</thead>
+		<tbody>
+		<tr>
+			<td>${keSum}</td>
+			<td>*</td>
+			<td>${selectedSensitivity}</td>
+			<td>=</td>
+			<td><b>${insulinSum}</b></td>
+		</tr>
+		</tbody>
+	</table>
+	</body>
 </article>
