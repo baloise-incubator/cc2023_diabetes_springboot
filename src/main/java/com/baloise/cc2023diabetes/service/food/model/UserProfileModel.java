@@ -1,16 +1,16 @@
 package com.baloise.cc2023diabetes.service.food.model;
 
-import com.baloise.cc2023.diabetes.jooq.tables.pojos.UserProfile;
 
-import java.math.BigDecimal;
+import com.baloise.cc2023diabetes.generated.tables.pojos.UserProfile;
+
 import java.util.UUID;
 
 public record UserProfileModel(
-        BigDecimal sensitivityMorning,
-        BigDecimal sensitivityNoon,
-        BigDecimal sensitivityEvening) {
+        Double sensitivityMorning,
+        Double sensitivityNoon,
+        Double sensitivityEvening) {
 
-    public static final UserProfileModel EMPTY = new UserProfileModel(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
+    public static final UserProfileModel EMPTY = new UserProfileModel(0.0, 0.0, 0.0);
 
     public UserProfile toUserProfile(UUID userId) {
         return new UserProfile(userId, sensitivityMorning, sensitivityNoon, sensitivityEvening);

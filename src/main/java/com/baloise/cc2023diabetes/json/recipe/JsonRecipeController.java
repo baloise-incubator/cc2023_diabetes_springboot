@@ -22,7 +22,7 @@ public class JsonRecipeController {
     }
 
     @GetMapping("/json/recipes/{id}")
-    public RecipeModel getRecipeById(Principal principal, @PathVariable Integer id) {
+    public RecipeModel getRecipeById(Principal principal, @PathVariable Long id) {
         return recipeService.getRecipe(UUID.fromString(principal.getName()), id);
     }
 

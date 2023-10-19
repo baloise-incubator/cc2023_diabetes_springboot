@@ -1,7 +1,8 @@
 package com.baloise.cc2023diabetes.service.food;
 
-import com.baloise.cc2023.diabetes.jooq.tables.daos.UserProfileDao;
-import com.baloise.cc2023.diabetes.jooq.tables.pojos.UserProfile;
+
+import com.baloise.cc2023diabetes.generated.tables.daos.UserProfileDao;
+import com.baloise.cc2023diabetes.generated.tables.pojos.UserProfile;
 import com.baloise.cc2023diabetes.service.food.model.UserProfileModel;
 import lombok.RequiredArgsConstructor;
 import lombok.Synchronized;

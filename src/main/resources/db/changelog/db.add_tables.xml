@@ -2,17 +2,95 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="1" author="jmh">
+    <changeSet id="create-table-Food" author="jmh">
         <createTable tableName="FOOD">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true"/>
+            <column name="ID" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="dept" type="varchar(254)">
+            <column name="TITLE" type="varchar(254)">
                 <constraints nullable="false"/>
             </column>
-            <column name="emp_id" type="int">
-                <constraints nullable="false"/>
-            </column>
+            <column name="SYN" type="varchar(254)"/>
+            <column name="CAT" type="varchar(254)"/>
+            <column name="UNIT" type="varchar(255)"/>
+            <column name="KILOJOULE" type="double"/>
+            <column name="FAT_TOTAL" type="double"/>
+            <column name="FAT_SATURATED" type="double"/>
+            <column name="FAT_UNSATURATED_SINGLE" type="double"/>
+            <column name="FAT_UNSATURATED_MULTIPLE" type="double"/>
+            <column name="CARBOHYDRATE_AVAILABLE" type="double"/>
+            <column name="SUGAR" type="double"/>
+            <column name="FIBRE" type="double"/>
+            <column name="PROTEIN" type="double"/>
+            <column name="WATER" type="double"/>
         </createTable>
     </changeSet>
+
+
+    <changeSet id="creat_other_tables" author="jmh">
+        <!-- Create the USER_PROFILE table -->
+        <createTable tableName="USER_PROFILE">
+            <column name="ID" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="SENSITIVITY_MORNING" type="double"/>
+            <column name="SENSITIVITY_NOON" type="double"/>
+            <column name="SENSITIVITY_EVENING" type="double"/>
+        </createTable>
+
+        <!-- Create the RECIPE table -->
+        <createTable tableName="RECIPE">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="USER_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TITLE" type="VARCHAR(254)"/>
+        </createTable>
+
+        <!-- Create the RECIPE_INGREDIENTS table -->
+        <createTable tableName="RECIPE_INGREDIENTS">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="RECIPE" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="fk_recipe_ingredients_recipe"
+                             referencedTableName="RECIPE" referencedColumnNames="ID"/>
+            </column>
+            <column name="FOOD" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="fk_recipe_ingredients_food"
+                             referencedTableName="FOOD" referencedColumnNames="ID"/>
+            </column>
+            <column name="AMOUNT" type="double"/>
+        </createTable>
+
+    </changeSet>
+
+    <!-- <changeSet id="load-data-food" author="jmh">
+         <loadData
+                 file="food_data.csv"
+                 separator=";"
+                 tableName="Food"
+                 relativeToChangelogFile="true">
+             <column name="TITLE" type="STRING"/>
+             <column name="SYN" type="STRING"/>
+             <column name="CAT" type="STRING"/>
+             <column name="UNIT" type="STRING"/>
+             <column name="KILOJOULE" type="NUMERIC"/>
+             <column name="FAT_TOTAL" type="NUMERIC"/>
+             <column name="FAT_SATURATED" type="NUMERIC"/>
+             <column name="FAT_UNSATURATED_SINGLE" type="NUMERIC"/>
+             <column name="FAT_UNSATURATED_MULTIPLE" type="NUMERIC"/>
+             <column name="CARBOHYDRATE_AVAILABLE" type="NUMERIC"/>
+             <column name="SUGAR" type="NUMERIC"/>
+             <column name="FIBRE" type="NUMERIC"/>
+             <column name="PROTEIN" type="NUMERIC"/>
+             <column name="WATER" type="NUMERIC"/>
+         </loadData>
+     </changeSet>-->
+
+
 </databaseChangeLog>

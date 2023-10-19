@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.baloise.cc2023.diabetes.jooq.Tables.FOOD;
+import static com.baloise.cc2023diabetes.generated.Tables.FOOD;
 
 @Service
 @AllArgsConstructor
@@ -30,6 +30,6 @@ public class FoodService {
     }
 
     public FoodModel findFood(String title) {
-		return search(title).get(0);
+        return search(title).get(0);
     }
 }

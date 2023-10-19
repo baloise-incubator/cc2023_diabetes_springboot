@@ -13,33 +13,34 @@ import java.util.Map;
 @Component
 @Data
 public class SelectedFoodStore {
-	private Map<String, SelectedFoodModel> items = new HashMap<>();
+    private Map<String, SelectedFoodModel> items = new HashMap<>();
 
-	private final FoodService foodService;
+    private final FoodService foodService;
 
-	public void removeItem(String title) {
-		var map = new HashMap<>(getItems());
-		map.remove(title);
-		setItems(map);
-	}
+    public void removeItem(String title) {
+        var map = new HashMap<>(getItems());
+        map.remove(title);
+        setItems(map);
+    }
 
-	public void addItem(String title) {
-		var newItems = new HashMap<>(getItems());
-		FoodModel food = foodService.findFood(title);
-		var newItem = SelectedFoodModelBuilder.builder()
-			.id(food.id())
-			.title(food.title())
-			.unit(food.unit())
-			.amount(0)
-			.carbohydrateAvailable(food.carbohydrateAvailable())
-			.carbohydrateUnits(food.carbohydrateUnits())
-			.sugar(food.sugar())
-			.build();
-		newItems.put(title, newItem);
-		setItems(newItems);
-	}
-	public void changeItem(String title, int amount) {
-		var changedItem = getItems().get(title).withAmount(amount);
-		getItems().put(title, changedItem);
-	}
+    public void addItem(String title) {
+        var newItems = new HashMap<>(getItems());
+        FoodModel food = foodService.findFood(title);
+        var newItem = SelectedFoodModelBuilder.builder()
+                .id(food.id())
+                .title(food.title())
+                .unit(food.unit())
+                .amount(0.0)
+                .carbohydrateAvailable(food.carbohydrateAvailable())
+                .carbohydrateUnits(food.carbohydrateUnits())
+                .sugar(food.sugar())
+                .build();
+        newItems.put(title, newItem);
+        setItems(newItems);
+    }
+
+    public void changeItem(String title, double amount) {
+        var changedItem = getItems().get(title).withAmount(amount);
+        getItems().put(title, changedItem);
+    }
 }
