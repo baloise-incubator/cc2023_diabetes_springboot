@@ -1,7 +1,7 @@
 name: Application workflow
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
     paths:
       - 'src/**'
       - '.github/workflows/workflow.yaml'
