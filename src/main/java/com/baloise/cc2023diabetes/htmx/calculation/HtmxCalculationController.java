@@ -47,15 +47,12 @@ public class HtmxCalculationController {
         model.addAttribute("items", selectedFoodModelsSorted(values));
 
         var selectedSensitivity = 1.2;
-
-        var insulinSum = 0.0;
         var keSum = 0.0;
         for (SelectedFoodModel value : values) {
             var w = value.amount();
-            insulinSum += (w)/100.0;
             keSum += w*value.carbohydrateUnits();
         }
-		insulinSum /= selectedSensitivity;
+        var insulinSum = keSum * selectedSensitivity;
         model.addAttribute("insulinSum", String.format("%,.2f", insulinSum) );
         model.addAttribute("keSum", String.format("%,.2f", keSum));
         model.addAttribute("selectedSensitivity", selectedSensitivity);
