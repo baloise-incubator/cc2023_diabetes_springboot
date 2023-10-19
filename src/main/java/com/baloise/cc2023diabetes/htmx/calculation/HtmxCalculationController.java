@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @Controller
@@ -47,10 +48,10 @@ public class HtmxCalculationController {
         model.addAttribute("items", selectedFoodModelsSorted(values));
 
         var selectedSensitivity = 1.2;
-        var keSum = 0.0;
+        double keSum = 0.0;
         for (SelectedFoodModel value : values) {
             var w = value.amount();
-            keSum += w*value.carbohydrateUnits();
+            keSum += value.carbohydrateUnits().multiply(BigDecimal.valueOf(w)).doubleValue();
         }
         var insulinSum = keSum * selectedSensitivity;
         model.addAttribute("insulinSum", String.format("%,.2f", insulinSum) );

@@ -2,15 +2,17 @@ package com.baloise.cc2023diabetes.htmx.food;
 
 import io.soabase.recordbuilder.core.RecordBuilder;
 
+import java.math.BigDecimal;
+
 @RecordBuilder
 public record SelectedFoodModel(
 	long id,
 	String title,
 	String unit,
 	int amount,
-	Double carbohydrateAvailable,
-	Double carbohydrateUnits,
-	Double sugar
+	BigDecimal carbohydrateAvailable,
+	BigDecimal carbohydrateUnits,
+	BigDecimal sugar
 ) implements Comparable<SelectedFoodModel>, SelectedFoodModelBuilder.With {
 	@Override
 	public int compareTo(SelectedFoodModel other) {
@@ -26,9 +28,9 @@ public record SelectedFoodModel(
 	public String weightedCarbohydrateUnits() {
 		return weightedDouble(carbohydrateUnits(), "%,.2f");
 	}
-	public String weightedDouble(Double value, String format) {
+	public String weightedDouble(BigDecimal value, String format) {
 		try {
-			double d = amount * value;
+			BigDecimal d = value.multiply(BigDecimal.valueOf(amount));
 			return String.format(format, d);
 		} catch (NumberFormatException e) {
 			return "0";
