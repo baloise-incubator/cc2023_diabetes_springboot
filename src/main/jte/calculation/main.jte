@@ -16,6 +16,11 @@ content = @`
 
 		</div>
 	</div>
+	<%--
+	Disable hx-boost so that 'DOMContentLoaded' event will be triggered.
+	Alternative: disable it completely on body element.
+	--%>
+	<a hx-boost="false" role="button" href="/food">Zurück</a>
 `
 )
 
