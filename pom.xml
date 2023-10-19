@@ -141,7 +141,6 @@
                                     <value>${basedir}/src/main/resources/db/changelog</value>
                                 </property>
 
-                                <!-- Specify the relative path location of your XML, YAML, or JSON script. -->
                                 <property>
                                     <key>scripts</key>
                                     <value>db.changelog-master.xml</value>
@@ -149,7 +148,7 @@
                             </properties>
                         </database>
                         <target>
-                            <packageName>com.stemlaur.anki.application.providers.jooq</packageName>
+                            <packageName>com.baloise.cc2023diabetes.generated</packageName>
                         </target>
                     </generator>
                 </configuration>
