@@ -4,8 +4,8 @@
 
     <changeSet id="create-table-Food" author="jmh">
         <createTable tableName="FOOD">
-            <column name="ID" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="TITLE" type="varchar(254)">
                 <constraints nullable="false"/>
@@ -40,8 +40,8 @@
 
         <!-- Create the RECIPE table -->
         <createTable tableName="RECIPE">
-            <column name="ID" type="bigint">
-                <constraints primaryKey="true" nullable="false"/>
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="USER_ID" type="UUID">
                 <constraints nullable="false"/>
@@ -51,8 +51,8 @@
 
         <!-- Create the RECIPE_INGREDIENTS table -->
         <createTable tableName="RECIPE_INGREDIENTS">
-            <column name="ID" type="bigint">
-                <constraints primaryKey="true" nullable="false"/>
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="RECIPE" type="bigint">
                 <constraints nullable="false"
