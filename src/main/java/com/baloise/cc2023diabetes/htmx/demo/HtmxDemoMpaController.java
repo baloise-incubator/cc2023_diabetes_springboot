@@ -17,13 +17,23 @@ public class HtmxDemoMpaController {
     }
 
     @GetMapping("/demo/spa/alpine-data/page1")
-    public String page1(Model model) {
+    public String data_page1(Model model) {
         return "demo/spa/alpine-data/page1";
     }
 
     @GetMapping("/demo/spa/alpine-data/page2")
-    public String page2(Model model) {
+    public String data_page2(Model model) {
         return "demo/spa/alpine-data/page2";
+    }
+
+    @GetMapping("/demo/spa/alpine-store/page1")
+    public String store_page1(Model model) {
+        return "demo/spa/alpine-store/page1";
+    }
+
+    @GetMapping("/demo/spa/alpine-store/page2")
+    public String store_page2(Model model) {
+        return "demo/spa/alpine-store/page2";
     }
 
 }

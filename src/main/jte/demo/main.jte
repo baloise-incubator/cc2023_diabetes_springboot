@@ -14,6 +14,7 @@
 
 	<ul>
 		<li><a href="demo/spa/alpine-data/page1" target="_blank">Share data across pages with alpine-data</a> </li>
+		<li><a href="demo/spa/alpine-store/page1" target="_blank">Share data across pages with alpine-store</a> </li>
 	</ul>
 
 </main>
