@@ -81,3 +81,7 @@ input.table-input {
     background-color: #eee; /* Add a hover effect to all links, except for headers */
 }
 
+.demo-explanation {
+    width: 50%;
+    text-align: justify;
+}

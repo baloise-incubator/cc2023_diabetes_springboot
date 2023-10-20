@@ -11,14 +11,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Slf4j
 public class HtmxDemoMpaController {
 
-    @GetMapping("/demo/mpa/page1")
-    public String page1(Model model) {
-        return "demo/mpa/page1";
+    @GetMapping("/demo")
+    public String main(Model model) {
+        return "demo/main";
     }
 
-    @GetMapping("/demo/mpa/page2")
+    @GetMapping("/demo/spa/alpine-data/page1")
+    public String page1(Model model) {
+        return "demo/spa/alpine-data/page1";
+    }
+
+    @GetMapping("/demo/spa/alpine-data/page2")
     public String page2(Model model) {
-        return "demo/mpa/page2";
+        return "demo/spa/alpine-data/page2";
     }
 
 }
