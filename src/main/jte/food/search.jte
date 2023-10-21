@@ -4,8 +4,6 @@
 @param FoodVM result
     <ul id="myUL">
     @for(FoodModel food : result.foodModels())
-        <li hx-post="/saveSelectedFood" hx-target="#none" hx-vals='{"title": "${food.title()}", "p2": "v2"}'>${food.title()}</li>
+        <li hx-post="/saveSelectedFood" hx-swap="none" hx-vals='{"title": "${food.title()}", "p2": "v2"}'>${food.title()}</li>
     @endfor
     </ul>
-
-<div id="none" style="display: none"></div>
